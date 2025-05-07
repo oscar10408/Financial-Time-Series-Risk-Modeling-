@@ -34,8 +34,8 @@ calc_default_prob = function(mu, sigma, v, niter = 1e5) {
 
 | File | Description |
 |------|-------------|
-| `HW1_HaoChun_Shih.Rnw` | Main source file combining R and LaTeX |
-| `HW1_HaoChun_Shih.pdf` | Final rendered report with results |
+| `Financial_TimeSeries_and_RiskModeling.Rnw` | Main source file combining R and LaTeX |
+| `Financial_TimeSeries_and_RiskModeling.pdf` | Final rendered report with results |
 | `Daily_Stock_Price.csv` | TSLA & NVDA price data |
 | `sp500_full.csv` | Historical S&P 500 data |
 
@@ -111,7 +111,7 @@ To better capture tail risk, we tested standardized **t-distributions** with var
 
 To reproduce the report:
 
-1. Open `HW1_HaoChun_Shih.Rnw` in **RStudio**
+1. Open `Financial_TimeSeries_and_RiskModeling.Rnw` in **RStudio**
 2. Set knitting engine to **knitr**
 3. Click **Knit to PDF**
 
