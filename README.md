@@ -2,7 +2,7 @@
 
 This repository contains a comprehensive financial analysis project written in **R and LaTeX** (via `.Rnw` and `knitr`). The project focuses on real-world financial datasets including stock prices of **Tesla (TSLA)** and **Nvidia (NVDA)**, as well as the **S&P 500 Index**, and applies advanced techniques in time series analysis, risk modeling, and simulation-based methods.
 
-
+> Built as part of an EECS 545 assignment at the University of Michigan.
 
 ---
 
@@ -19,54 +19,79 @@ This repository contains a comprehensive financial analysis project written in *
 
 ## 🔍 Key Topics Covered
 
-### 1. 📊 Stock Price & Return Visualization
-- Daily stock prices of NVDA & TSLA (2022–2024)
-- Raw returns and log-returns
-- Visual identification of stock splits
-- Scatter plot of NVDA vs TSLA log-returns
+### 1. 📊 Stock Return Analysis (TSLA & NVDA)
+We plotted daily stock prices and computed raw returns & log-returns from 2022 to 2024. We also identified stock splits from significant drops in price:
+
+- TSLA had a **3-for-1 split** on **2022-08-25**
+- NVDA had a **10-for-1 split** on **2024-06-10**
+
+#### 📈 Returns of NVIDIA and TESLA
+<img src="Stock_Returns.png" width="600"/>
+
+---
 
 ### 2. 📉 S&P 500 Log Return Analysis
-- Time series of daily and log-returns
-- Extreme market events: Black Monday, COVID-19
-- Autocorrelation analysis (1, 5, 10, 20-day returns & squared)
 
-### 3. ⚠️ Value-at-Risk (VaR)
-- Compute analytical VaR under i.i.d. normal assumption
-- Compare empirical exceedance frequencies with theoretical expectations
-- Multi-horizon VaR (1-day to 20-day)
+We visualized the full historical S&P 500 daily returns (1980–2024), identified extreme events such as:
 
-### 4. 🧮 Summary Statistics
-- Quantiles for log-returns at different horizons
-- Normal Q-Q plots for assessing fat tails
+- **Black Monday (1987-10-19):** -20.47% return
+- **COVID-19 Crash (2020-03-16):** -11.98% return
 
-### 5. 🎲 Default Probability Simulation
-- Simulate default probability under t-distributed return assumptions
-- Explore impact of volatility and degrees of freedom
-- Visualize results via heatmap
-
-### 6. 💵 US Treasury Yield & Bond Pricing
-- Estimate coupon payments & yield to maturity using `uniroot()`
-- Analyze 3-month, 5-year, and 30-year bonds
+#### 🔻 S&P500 Daily Returns
+<img src="S&P500_Returns.png" width="600"/>
 
 ---
 
-## 📷 Visual Example Outputs
+### 3. 🧠 Auto-Correlation Analysis
 
-> _Note: Add the actual images or replace the links with image files stored in the repo's `img/` folder._
+We analyzed autocorrelation of log-returns and their squares over 1, 5, 10, and 20-day windows. While log-returns showed weak autocorrelation, squared returns revealed strong persistence — consistent with volatility clustering.
 
-### Tesla vs Nvidia Stock Prices
-![TSLA_NVDA](img/tsla_nvda_prices.png)
+#### 🔁 ACF of Log Returns
+<img src="ACF-1.png" width="600"/>
 
-### S&P 500 Log Returns
-![S&P500 Log](img/sp500_log_returns.png)
-
-### QQ Plot of Log Returns (t-distribution ν = 4.2)
-![QQ t](img/qqplot_t_42.png)
-
-### Heatmap: Default Probability vs Volatility and ν
-![Heatmap](img/default_prob_heatmap.png)
+#### 🔁 ACF of Squared Log Returns
+<img src="ACF-2.png" width="600"/>
 
 ---
+
+### 4. 📊 Normality Assessment via Q-Q Plots
+
+Q-Q plots show significant deviation from normality, especially in the tails, suggesting heavy-tailed behavior. The longer the holding period (e.g., 10-day, 20-day), the more pronounced the deviation.
+
+#### 📐 Q-Q Plots of Log Returns
+<img src="qqplots-1.png" width="600"/>
+
+---
+
+### 5. 📘 Fitting t-Distributions to Log Returns
+
+To better capture tail risk, we tested standardized **t-distributions** with various degrees of freedom. The best fit occurred at **ν = 4.2**, balancing tail behavior and center alignment.
+
+#### 📊 Model Fitting via Q-Q Plots (t-distributions)
+<img src="model_fitting_via_qqplots.png" width="600"/>
+
+---
+
+## 🎯 Key Conclusions
+
+- **Return Distributions:** Stock and index returns show strong skewness and heavy tails. Normal distribution is not sufficient for tail modeling.
+- **Volatility Clustering:** While returns have weak autocorrelation, squared returns exhibit long-term memory, validating use of GARCH-type models.
+- **t-Distribution Fit:** A standardized t-distribution with ν ≈ 4.2 models the SP500 log-returns better than a Gaussian model.
+- **Risk Events Are Real:** Our return drop detection aligns precisely with real market crashes and stock split announcements.
+- **VaR Estimation:** Analytical Value-at-Risk estimates were consistent with empirical probabilities for both 5% and 1% levels across multiple horizons.
+- **Simulation Insight:** Probability of default increases with higher volatility and lower degrees of freedom (heavier tails), showing clear interaction between risk and distribution shape.
+
+---
+
+## 💻 How to Compile
+
+To reproduce the report:
+
+1. Open `HW1_HaoChun_Shih.Rnw` in **RStudio**
+2. Set knitting engine to **knitr**
+3. Click **Knit to PDF**
+
+
 
 ## 🧪 Sample Code Highlights
 
@@ -91,4 +116,4 @@ calc_default_prob = function(mu, sigma, v, niter = 1e5) {
   })
   mean(below)
 }
-```
+``` 
