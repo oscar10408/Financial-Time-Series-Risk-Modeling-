@@ -50,7 +50,7 @@ We plotted daily stock prices and computed raw returns & log-returns from 2022 t
 - NVDA had a **10-for-1 split** on **2024-06-10**
 
 #### 📈 Returns of NVIDIA and TESLA
-<img src="Stock_Returns.png" width="600"/>
+<img src="Images/Stock_Returns.png" width="600"/>
 
 ---
 
@@ -62,7 +62,7 @@ We visualized the full historical S&P 500 daily returns (1980–2024), identifie
 - **COVID-19 Crash (2020-03-16):** -11.98% return
 
 #### 🔻 S&P500 Daily Returns
-<img src="S&P500_Returns.png" width="600"/>
+<img src="Images/S&P500_Returns.png" width="600"/>
 
 ---
 
@@ -71,10 +71,10 @@ We visualized the full historical S&P 500 daily returns (1980–2024), identifie
 We analyzed autocorrelation of log-returns and their squares over 1, 5, 10, and 20-day windows. While log-returns showed weak autocorrelation, squared returns revealed strong persistence — consistent with volatility clustering.
 
 #### 🔁 ACF of Log Returns
-<img src="ACF-1.png" width="600"/>
+<img src="Images/ACF-1.png" width="600"/>
 
 #### 🔁 ACF of Squared Log Returns
-<img src="ACF-2.png" width="600"/>
+<img src="Images/ACF-2.png" width="600"/>
 
 ---
 
@@ -83,7 +83,7 @@ We analyzed autocorrelation of log-returns and their squares over 1, 5, 10, and 
 Q-Q plots show significant deviation from normality, especially in the tails, suggesting heavy-tailed behavior. The longer the holding period (e.g., 10-day, 20-day), the more pronounced the deviation.
 
 #### 📐 Q-Q Plots of Log Returns
-<img src="qqplots-1.png" width="600"/>
+<img src="Images/qqplots-1.png" width="600"/>
 
 ---
 
@@ -92,7 +92,7 @@ Q-Q plots show significant deviation from normality, especially in the tails, su
 To better capture tail risk, we tested standardized **t-distributions** with various degrees of freedom. The best fit occurred at **ν = 4.2**, balancing tail behavior and center alignment.
 
 #### 📊 Model Fitting via Q-Q Plots (t-distributions)
-<img src="model_fitting_via_qqplots.png" width="600"/>
+<img src="Images/model_fitting_via_qqplots.png" width="600"/>
 
 ---
 
