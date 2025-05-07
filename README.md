@@ -2,8 +2,32 @@
 
 This repository contains a comprehensive financial analysis project written in **R and LaTeX** (via `.Rnw` and `knitr`). The project focuses on real-world financial datasets including stock prices of **Tesla (TSLA)** and **Nvidia (NVDA)**, as well as the **S&P 500 Index**, and applies advanced techniques in time series analysis, risk modeling, and simulation-based methods.
 
-> Built as part of an EECS 545 assignment at the University of Michigan.
+---
 
+## 🧪 Sample Code Highlights
+
+### Load and Process Stock Prices
+```r
+dat = read.csv("Daily_Stock_Price.csv")
+stocks = split(dat$PRC, dat$COMNAM)
+times = split(as.Date(dat$date), dat$COMNAM)
+
+R.TSLA = diff(stocks[["TESLA INC"]]) / head(stocks[["TESLA INC"]], -1)
+r.NVDA = diff(log(stocks[["NVIDIA CORP"]]))
+
+VaR = -(mu_k + qnorm(alpha) * sigma_k)
+
+C = uniroot(function(C) (C/r + (PAR - C/r)/(1+r)^30) - 1000, interval=c(1,1000))$root
+
+calc_default_prob = function(mu, sigma, v, niter = 1e5) {
+  below = replicate(niter, {
+    r = mu + sigma * rt(45, df = v)
+    logPrice = log(1e6) + cumsum(r)
+    min(logPrice) < log(950000)
+  })
+  mean(below)
+}
+``` 
 ---
 
 ## 📦 Project Structure
@@ -91,29 +115,3 @@ To reproduce the report:
 2. Set knitting engine to **knitr**
 3. Click **Knit to PDF**
 
-
-
-## 🧪 Sample Code Highlights
-
-### Load and Process Stock Prices
-```r
-dat = read.csv("Daily_Stock_Price.csv")
-stocks = split(dat$PRC, dat$COMNAM)
-times = split(as.Date(dat$date), dat$COMNAM)
-
-R.TSLA = diff(stocks[["TESLA INC"]]) / head(stocks[["TESLA INC"]], -1)
-r.NVDA = diff(log(stocks[["NVIDIA CORP"]]))
-
-VaR = -(mu_k + qnorm(alpha) * sigma_k)
-
-C = uniroot(function(C) (C/r + (PAR - C/r)/(1+r)^30) - 1000, interval=c(1,1000))$root
-
-calc_default_prob = function(mu, sigma, v, niter = 1e5) {
-  below = replicate(niter, {
-    r = mu + sigma * rt(45, df = v)
-    logPrice = log(1e6) + cumsum(r)
-    min(logPrice) < log(950000)
-  })
-  mean(below)
-}
-``` 
